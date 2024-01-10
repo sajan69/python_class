@@ -1,11 +1,10 @@
 import csv
+import getpass
 
 def login():
     username = input("Enter your username: ").strip()
-    password = input("Enter your password: ").strip()
-    return username, password
+    password = getpass.getpass("Enter your password: ").strip()
 
-def check_credentials(username, password):
     file_path = 'accounts.csv'
 
     with open(file_path, 'r') as csvfile:
@@ -16,3 +15,6 @@ def check_credentials(username, password):
                 return True
         print("Invalid username or password.")
         return False
+
+if __name__ == "__main__":
+    login()

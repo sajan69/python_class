@@ -1,6 +1,6 @@
 import getpass
-from register import register, save_account
-from login import login, check_credentials
+from register import register, check_email_exists
+from login import login
 
 def main():
     while True:
@@ -12,13 +12,13 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == '1':
-            email, username = register()
-            password = getpass.getpass("Enter your password: ").strip()
-            save_account(email, username, password)
+            email = input("Enter your email: ").strip()
+            if not check_email_exists(email):
+                register()
+            else:
+                print("An account with this email already exists.")
         elif choice == '2':
-            username, password = login()
-            password = getpass.getpass("Enter your password: ").strip()
-            check_credentials(username, password)
+            login()
         elif choice == '3':
             print("Goodbye!")
             break
