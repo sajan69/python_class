@@ -2,6 +2,10 @@ import csv
 import getpass
 
 def check_email_exists(email):
+    '''
+    Checks whether the registerd email already exist in the database!!
+    
+    '''
     file_path = 'accounts.csv'
     
     with open(file_path, 'r') as csvfile:
@@ -11,8 +15,21 @@ def check_email_exists(email):
                 return True
     return False
 
-def register():
-    email = input("Enter your email: ").strip()
+
+def validate_email(email):
+    
+    '''
+    Validate email: @, .com required
+    '''
+    if '@' in email and email.endswith('.com'):
+        return True
+    return False
+
+def register(email):
+
+    if not validate_email(email):
+        print("Invalid email format. Email must contain '@' and end with '.com'.")
+        return
 
     if check_email_exists(email):
         print("An account with this email already exists.")
