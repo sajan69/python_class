@@ -1,3 +1,14 @@
+print("""
+    This is a sample Calculator:
+      Please Choose from following operation:
+      1. Add
+      2.Subtract
+      3. Multiplication
+      4. Divide
+      """)
+choice = int(input('Enter your choice:'))
+
+
 def take_input():
     num1 = int(input('Enter first number :'))
     num2 = int(input('Enter second number :'))
@@ -24,17 +35,10 @@ def div():
 
 
 
-print("""
-    This is a sample Calculator:
-      Please Choose from following operation:
-      1. Add
-      2.Subtract
-      3. Multiplication
-      4. Divide
-      """)
 
 
-choice = int(input('Enter your choice:'))
+
+
 
 if choice == 1: 
     print('The sum of the numbers is :', add())
@@ -48,7 +52,9 @@ elif choice == 3:
 elif choice == 4:
     print('The result of the numbers is :', div())
 
-elif choice == 5:
+
+
+else:
     print('TATA')
     exit()
 
