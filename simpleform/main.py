@@ -1,4 +1,3 @@
-import getpass
 from register import register, check_email_exists, validate_email
 from login import login
 from vehicle_manager import main_menu
@@ -6,7 +5,7 @@ from vehicle_manager import main_menu
 
 def main():
     while True:
-        print("\nWelcome!")
+        print("\nWelcome To your Vehicle Manager Portal!!")
         print("1. Register")
         print("2. Login")
         print("3. Exit")

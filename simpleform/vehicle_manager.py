@@ -12,7 +12,7 @@ def read_vehicle_data():
             for row in reader:
                 vehicles.append(row)
     except FileNotFoundError:
-        pass  # Return an empty list if the file doesn't exist
+        pass  
 
     return vehicles
 
@@ -156,7 +156,7 @@ def display_menu():
 
 def main_menu():
     """Main function for vehicle management."""
-    print("Welcome to Vehicle Manager")
+    print("Welcome to Vehicle Manager Portal")
     while True:
         display_menu()
         choice = input("Enter your choice (1-6): ")
