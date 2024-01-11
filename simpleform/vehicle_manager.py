@@ -1,5 +1,6 @@
 
 import csv
+from tabulate import tabulate
 
 def read_vehicle_data():
     """Read vehicle data from a CSV file."""
@@ -19,7 +20,7 @@ def read_vehicle_data():
 def write_vehicle_data(vehicles):
     """Write vehicle data to a CSV file."""
     file_path = 'vehicles.csv'
-    fieldnames = ['ID', 'Type', 'Model', 'Registration Number']
+    fieldnames = ['ID', 'Type', 'Model', 'RegistrationNumber']
 
     with open(file_path, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -35,7 +36,7 @@ def add_vehicle():
 
     vehicle_type = input("Enter vehicle type: ")
     model = input("Enter vehicle model: ")
-    registration_number = input("Enter registration number: ")
+    registration_number = input("Enter RegistrationNumber: ")
 
     last_id = 0 if not vehicles else int(vehicles[-1]['ID'])
     new_id = last_id + 1
@@ -44,14 +45,14 @@ def add_vehicle():
         'ID': str(new_id),
         'Type': vehicle_type,
         'Model': model,
-        'Registration Number': registration_number
+        'RegistrationNumber': registration_number
     }
 
     vehicles.append(new_vehicle)
     write_vehicle_data(vehicles)
 
     print("\nVehicle added successfully:")
-    print(f"ID: {new_id}, Type: {vehicle_type}, Model: {model}, Registration Number: {registration_number}")
+    print(f"ID: {new_id}, Type: {vehicle_type}, Model: {model}, RegistrationNumber: {registration_number}")
 
 def update_vehicle_by_id():
     """Update vehicle details by ID."""
@@ -68,19 +69,19 @@ def update_vehicle_by_id():
             print(f"Vehicle with ID {vehicle_id} found.")
             print("Enter new details:")
 
-            # Collect updated information (e.g., vehicle type, model, registration number, etc.)
+            # Collect updated information (e.g., vehicle type, model, RegistrationNumber, etc.)
             vehicle_type = input("Enter updated vehicle type: ")
             model = input("Enter updated vehicle model: ")
-            registration_number = input("Enter updated registration number: ")
+            registration_number = input("Enter updated RegistrationNumber: ")
 
             # Update the vehicle details
             vehicle['Type'] = vehicle_type
             vehicle['Model'] = model
-            vehicle['Registration Number'] = registration_number
+            vehicle['RegistrationNumber'] = registration_number
 
             write_vehicle_data(vehicles)
             print("\nVehicle updated successfully:")
-            print(f"ID: {vehicle_id}, Type: {vehicle_type}, Model: {model}, Registration Number: {registration_number}")
+            print(f"ID: {vehicle_id}, Type: {vehicle_type}, Model: {model}, RegistrationNumber: {registration_number}")
             break
 
     if not vehicle_found:
@@ -133,11 +134,11 @@ def view_all_vehicles():
     """View details of all vehicles."""
     print("\nViewing All Vehicles")
     vehicles = read_vehicle_data()
-
+   
     if vehicles:
-        print("All vehicles:")
-        for vehicle in vehicles:
-            print(vehicle)
+        vehicles = [ [vehicle["ID"], vehicle["Type"], vehicle["Model"], vehicle["RegistrationNumber"]] for vehicle in vehicles]
+        print("ID", "Model", "Type", "RegistrationNumber")
+        print( tabulate(vehicles))
     else:
         print("No vehicles found.")
 # ...

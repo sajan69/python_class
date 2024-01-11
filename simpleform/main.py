@@ -19,7 +19,7 @@ def main():
             else:
                 print("An account with this email already exists.")
         elif choice == '2':
-            login()
+            # login()
             if login():
                  main_menu()
             else:
