@@ -1,6 +1,7 @@
 
 import csv
-from tabulate import tabulate
+
+
 
 def read_vehicle_data():
     """Read vehicle data from a CSV file."""
@@ -136,9 +137,9 @@ def view_all_vehicles():
     vehicles = read_vehicle_data()
    
     if vehicles:
-        vehicles = [ [vehicle["ID"], vehicle["Type"], vehicle["Model"], vehicle["RegistrationNumber"]] for vehicle in vehicles]
-        print("ID", "Model", "Type", "RegistrationNumber")
-        print( tabulate(vehicles))
+        print("ID\tModel\tType\tRegistrationNumber")
+        for vehicle in vehicles:
+            print(f"{vehicle['ID']}\t{vehicle['Model']}\t{vehicle['Type']}\t{vehicle['RegistrationNumber']}")
     else:
         print("No vehicles found.")
 # ...
