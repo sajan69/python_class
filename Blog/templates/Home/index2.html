@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> Person's information</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">job</th>
+
+          </tr>
+        </thead>
+
+
+    <tbody>
+        <tr>
+          <th scope="row">{{person.id}}</th>
+          <td>{{person.name}}</td>
+          <td>{{person.age}}</td>
+          <td>{{person.job}}</td>
+        </tr>
+    
+      </tbody>
+
+ 
+      </table>
+ 
+ 
+{% endblock %}

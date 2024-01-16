@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -53,6 +54,7 @@
                         </li>
 
                     </ul>
+                    
                     <form class="form-inline my-2 my-lg-0" action="/" method="GET">
                         <input required class="form-control mr-sm-2" name="q" type="search" placeholder="Search..."
                             aria-label="Search">
@@ -66,11 +68,10 @@
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-start">
 
-            <a class="p-2 text-info font-weight-bold" href="?category=technology">Technology</a>
+            {% for category in categories %}
+            <a class="p-2 text-info font-weight-bold" href="{{category}}">{{category.name}}</a>
+            {% endfor %}
 
-            <a class="p-2 text-info font-weight-bold" href="?category=politics">Politics</a>
-
-            <a class="p-2 text-info font-weight-bold" href="?category=lorem">Lorem</a>
 
         </nav>
     </div>
@@ -83,22 +84,29 @@
     <div class="row mb-2">
 
 
+        {% for blog in posts  %}
         <div class="col-md-6">
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12">
                         <div class="card-body d-flex flex-column align-items-start">
-                            <strong class="d-inline-block mb-2 text-success">Politics</strong>
+                            <strong class="d-inline-block mb-2 text-success">{{blog.category}}</strong>
                             <h3 class="mb-0">
-                                <a class="text-dark" href="/post/this-post-if-from-nother-user">
-                                    this post if from nother user
+                                <a class="text-dark" href="post-detail/{{ post.id}}">
+                                    Title: {{ post.title }}
                                 </a>
                             </h3>
-                            <div class="mb-1 text-muted">6 hours ago</div>
-                            <p class="card-text mb-auto">t has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Ric…</p>
-                            <a href="/post/this-post-if-from-nother-user" class="mt-2 text-warning">Continue
+                            <p>{{ post.content }}</p>
+                            
+                            
+                            <div class="mb-1 text-muted">Date : {{blog.created_at}}</div>
+                            
+                            <p class="card-text mb-auto">{{blog.category}}</p>
+                            <a href="post-detail/{{post.id}}" class="mt-2 text-warning">Continue
                                 reading...</a>
                         </div>
+
+
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <img class="img-fluid rounded h-100 w-100" src="/media/posts/best_kYHBqOB.jpg" alt="this post if from nother user">
@@ -106,30 +114,9 @@
                 </div>
             </div>
         </div>
+        
+        {% endfor %}
 
-        <div class="col-md-6">
-            <div class="card flex-md-row mb-4 box-shadow h-md-250">
-                <div class="row">
-                    <div class="col-lg-8 col-md-12 col-sm-12">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <strong class="d-inline-block mb-2 text-success">Politics</strong>
-                            <h3 class="mb-0">
-                                <a class="text-dark" href="/post/where-can-i-get-some">
-                                    Where can I get some?
-                                </a>
-                            </h3>
-                            <div class="mb-1 text-muted">1 week, 3 days ago</div>
-                            <p class="card-text mb-auto">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alte…</p>
-                            <a href="/post/where-can-i-get-some" class="mt-2 text-warning">Continue
-                                reading...</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <img class="img-fluid rounded h-100 w-100" src="{% static "image.jpg" %}" alt="Where can I get some?">
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 

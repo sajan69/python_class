@@ -1,0 +1,39 @@
+<form class="needs-validation" enctype="multipart/form-data" action="{% url 'create-post' %}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label for="firstName">Title</label>
+            {{form.title}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="lastName">Category</label>
+        <select name="category" id="category" class="form-control">
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    <div class="mb-3">
+        <label for="email">Content </label>
+        {{form.content}}
+    </div>
+    <div class="mb-3">
+        <label for="email">Feature Image </label>
+        {{form.image}}
+    </div>
+    <div class="mb-3">
+        <label for="id_is_active">Is Active ? </label>
+        {{form.is_active}}
+    </div>
+    <div class="mb-3">
+        <label for="id_is_featured">Is Featured Post ? </label>
+        {{form.is_featured}}
+    </div>
+    <div class="row d-flex justify-content-end">
+        <div class="col-md-4 ml-0 ">
+            <button class="btn btn-success btn-lg btn-block" type="submit">Create Post</button>
+        </div>
+    </div>
+</form>
