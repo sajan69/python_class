@@ -1,82 +1,29 @@
+{% extends 'post/base.html'%}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title> Home  | Django Blog</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-        <style>
-            body {
-                overflow-x: hidden;
-            }
 
-            .blog-footer {
-                margin-top: 20px;
-                padding: 1rem 0;
-                color: #999;
-                text-align: center;
-                background-color: #f9f9f9;
-                border-top: .05rem solid #e5e5e5;
-            }
-
-            .blog-footer p:last-child {
-                margin-bottom: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container mt-3">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded justify-content-between">
-                <a class="navbar-brand" href="/">MyBlog</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact us </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register </a>
-                        </li>
-
-                    </ul>
-                    
-                    <form class="form-inline my-2 my-lg-0" action="/" method="GET">
-                        <input required class="form-control mr-sm-2" name="q" type="search" placeholder="Search..."
-                            aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
-        </div>
-
+{% block title %} Home {% endblock title %}
+{% block body %}
 <div class="container">
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-start">
-
             {% for category in categories %}
-            <a class="p-2 text-info font-weight-bold" href="{{category}}">{{category.name}}</a>
+            <a class="p-2 text-info font-weight-bold" href="?category={{category.slug}}">{{ category.name }}</a>
             {% endfor %}
-
-
         </nav>
     </div>
 
-
+    {% for feature in feature_posts %}
+    <div class="jumbotron p-3 p-md-5 rounded" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0, 0, 0, 0.5)), url('{{ feature.image.url }}'); background-repeat: no-repeat; background-position: center;">
+        <div class="col-md-12 px-0">
+            <h1 class="display-4 text-white font-weight-bold">
+                <a href="{% url 'post-details' feature.id %}" class="text-white">{{ feature.title }}</a>
+            </h1>
+            <p class="lead my-3 text-white">{{ feature.content|truncatechars:"300" }}</p>
+            <p class="lead mb-0"><a href="{% url 'post-details' feature.id %}" class="text-warning font-weight-bold">Continue reading...</a></p>
+        </div>
+    </div>
+    {% endfor %}
 
 
 
@@ -84,71 +31,28 @@
     <div class="row mb-2">
 
 
-        {% for blog in posts  %}
+        {% for post in posts %}
         <div class="col-md-6">
             <div class="card flex-md-row mb-4 box-shadow h-md-250">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12">
                         <div class="card-body d-flex flex-column align-items-start">
-                            <strong class="d-inline-block mb-2 text-success">{{blog.category}}</strong>
+                            <strong class="d-inline-block mb-2 text-primary">{{post.category}}</strong>
                             <h3 class="mb-0">
-                                <a class="text-dark" href="post-detail/{{ post.id}}">
-                                    Title: {{ post.title }}
-                                </a>
+                                <a class="text-dark" href="{% url 'post-details' post.id %}">{{post.title}}</a>
                             </h3>
-                            <p>{{ post.content }}</p>
-                            
-                            
-                            <div class="mb-1 text-muted">Date : {{blog.created_at}}</div>
-                            
-                            <p class="card-text mb-auto">{{blog.category}}</p>
-                            <a href="post-detail/{{post.id}}" class="mt-2 text-warning">Continue
-                                reading...</a>
+                            <div class="mb-1 text-muted">{{post.created_at}}</div>
+                            <p class="card-text mb-auto">{{post.content|truncatechars:"100"}}</p>
+                            <a href="{% url 'post-details' post.id %}">Continue reading...</a>
                         </div>
-
-
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <img class="img-fluid rounded h-100 w-100" src="/media/posts/best_kYHBqOB.jpg" alt="this post if from nother user">
+                        <img class="img-fluid rounded h-100 w-100" src="{{post.image.url}}" alt="{{post.title}}">
                     </div>
                 </div>
             </div>
         </div>
-        
         {% endfor %}
 
-
-
-
-
-    </div>
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-
-            <li class="page-item disabled"><a class="page-link disabled" href="#">Previous</a></li>
-
-            <li class="page-item"><a class="page-link" href="#">1 of
-                    2</a></li>
-
-            <li class="page-item"><a class="page-link" href="?page=2">Next</a>
-            </li>
-
-        </ul>
-    </nav>
-
 </div>
-
-        <div class="container mt-3">
-            <footer class="blog-footer rounded">
-                <p>Blog template built for <a href="#">Bootstrap</a>.</p>
-                <p>
-                    <a href="#">Back to top</a>
-                </p>
-            </footer>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    </body>
-</html>
+{% endblock body %}

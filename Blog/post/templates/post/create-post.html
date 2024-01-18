@@ -1,39 +1,100 @@
-<form class="needs-validation" enctype="multipart/form-data" action="{% url 'create-post' %}" method="POST">
-    {% csrf_token %}
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <label for="firstName">Title</label>
-            {{form.title}}
-        </div>
-    </div>
-    <div class="mb-3">
-        <label for="lastName">Category</label>
-        <select name="category" id="category" class="form-control">
-            {% for category in categories %}
-            <option value="{{category.id}}">{{category.name}}</option>
-            {% endfor %}
-        </select>
 
-    </div>
-    <div class="mb-3">
-        <label for="email">Content </label>
-        {{form.content}}
-    </div>
-    <div class="mb-3">
-        <label for="email">Feature Image </label>
-        {{form.image}}
-    </div>
-    <div class="mb-3">
-        <label for="id_is_active">Is Active ? </label>
-        {{form.is_active}}
-    </div>
-    <div class="mb-3">
-        <label for="id_is_featured">Is Featured Post ? </label>
-        {{form.is_featured}}
-    </div>
-    <div class="row d-flex justify-content-end">
-        <div class="col-md-4 ml-0 ">
-            <button class="btn btn-success btn-lg btn-block" type="submit">Create Post</button>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Add Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .form-check-label {
+            color: #495057;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form class="needs-validation" enctype="multipart/form-data" action="{% url 'create-post' %}" method="POST"
+                    novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title">Title</label>
+                        {{form.title}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="category">Category</label>
+                        <select name="category" id="category" class="form-control">
+                            {% for category in categories %}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content">Content</label>
+                        {{form.content}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="image">Feature Image</label>
+                        {{form.image}}
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="is_active" name="is_active">
+                        <label class="form-check-label" for="is_active">Is Active?</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="is_featured" name="is_featured">
+                        <label class="form-check-label" for="is_featured">Is Featured Post?</label>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-success btn-lg" type="submit">Create Post</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</form>
+
+    <!-- Add Bootstrap JS and Popper.js from CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-Yg2VroUdjj4A7VjM6Wx8UMQT6Euk7kXp2R83HAP8tlF8Gek2bRM7GBPS1Jl3Rqhku"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

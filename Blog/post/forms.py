@@ -2,6 +2,11 @@ from django import forms
 from django.forms.widgets import TextInput
 from post.models import BlogPost, Category
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
 class PostForm(forms.ModelForm):
     title = forms.CharField(
         max_length=200,
@@ -46,3 +51,4 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = ['title','category', 'content', 'image','is_featured', 'is_active']
+
